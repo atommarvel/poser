@@ -2,6 +2,8 @@ package com.radiantmood.compose.models
 
 import kotlinx.serialization.Serializable
 
+// TODO: DSL?
+
 @Serializable
 data class Response(val poses: Map<String, PoseNode>? = null)
 

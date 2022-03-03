@@ -13,7 +13,7 @@ fun responseExample(): Response = Response(
     )
 )
 
-fun listOfTextPoseNodes(amount: Int) = buildList<PoseNode> {
+fun listOfTextPoseNodes(amount: Int) = buildList {
     repeat(amount) {
         add(
             PoseNode(
