@@ -9,6 +9,7 @@ data class Response(val poses: Map<String, PoseNode>? = null)
 data class PoseNode(
     val type: PoseType,
     val attr: PoseAttribute? = null,
+    val parentScopedAttrs: Map<String, PoseAttribute>? = null,
     val params: Map<String, String>? = null,
     val children: List<PoseNode>? = null,
 )
@@ -20,34 +21,14 @@ data class PoseAttribute(
     val then: PoseAttribute? = null,
 )
 
-enum class PoseAttributeType
+enum class PoseAttributeType {
+    // AnyScoped
+    PaddingAll, Height, ParentMod,
 
-enum class PoseType {
-    Column, Row, Text,
+    // RowScoped
+    Weight
 }
 
-fun exampleNode() = PoseNode(
-    type = PoseType.Column,
-    children = listOfTextPoseNodes(5)
-)
-
-fun responseExample(): Response = Response(
-    poses = mapOf(
-        "example" to PoseNode(
-            type = PoseType.Column,
-            children = listOfTextPoseNodes(5)
-        )
-    )
-)
-
-@OptIn(ExperimentalStdlibApi::class)
-fun listOfTextPoseNodes(amount: Int) = buildList {
-    repeat(amount) {
-        add(
-            PoseNode(
-                type = PoseType.Text,
-                params = mapOf("text" to "Hello World $it!")
-            )
-        )
-    }
+enum class PoseType {
+    Column, Row, Text, Spacer, Button,
 }
